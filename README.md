@@ -1,3 +1,5 @@
+Demo App
+
 # Symbio Reference Application
 
 [![Build Status](https://jenkins.hq.symbiorobotics.com/buildStatus/icon?job=Reference+App%2Fmaster)](https://jenkins.hq.symbiorobotics.com/job/Reference%20App/job/master/)
