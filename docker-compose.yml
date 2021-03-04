@@ -1,0 +1,24 @@
+version: '2.4'
+
+services:
+  dcs:
+    image: ${DCS_PROJECT_NAME:?"Is the .env file missing?"}:${DCS_PROJECT_VERSION}
+    command: python3 # Enter DCS entrypoint here
+    build:
+      context: .
+      dockerfile: app/Dockerfile
+      args:
+        DCS_IMAGE_REF: ${DCS_IMAGE_REPO}:${DCS_IMAGE_TAG}
+        DCS_PROJECT_NAME: ${DCS_PROJECT_NAME}
+    network_mode: "host"
+    pid: "host"
+    env_file:
+      - ./configuration/sdcs.env
+    environment:
+      - USER_NAME
+      - USER_UID
+      - USER_GID
+    volumes:
+      - ${DCS_PROJECT_DIR}/${DCS_PROJECT_NAME}:/opt/symbio/${DCS_PROJECT_NAME}/${DCS_PROJECT_NAME}
+      - ${SYMBIO_DATA_DIR:-data}:/opt/symbio/data:rw
+      - ./configuration:/opt/symbio/configuration:rw

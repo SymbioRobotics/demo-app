@@ -1,0 +1,7 @@
+# When adding to this list, specify minor version bounds.
+# `pip install` will therefore grab maintainence releases
+# automatically. Major and minor releases that may change
+# behavior or interfaces must be explicitly requested and
+# verified.
+
+SDCS

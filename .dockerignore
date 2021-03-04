@@ -1,0 +1,19 @@
+.current
+.dockerignore
+.git
+.gitmodules
+
+**/Dockerfile
+**/README.md
+activate
+bootstrap
+Jenkinsfile
+Makefile
+
+**/.mypy_cache
+
+# Setuptools
+
+app/build
+app/dist
+**/.eggs

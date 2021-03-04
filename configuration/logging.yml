@@ -1,0 +1,25 @@
+version: 1
+disable_existing_loggers: False
+
+formatters:
+  console:
+    class: pythonjsonlogger.jsonlogger.JsonFormatter
+    format: "%(asctime)s.%(msecs)d %(levelname)s %(process)d %(processName)s %(name)s %(funcName)s %(message)s"
+    datefmt: "%Y-%m-%dT%H:%M:%S"
+
+handlers:
+  console:
+    class: logging.StreamHandler
+    formatter: "console"
+    stream: ext://sys.stderr
+
+loggers:
+  "":
+    handlers: ["console"]
+    level: "INFO"
+    root: True
+    propagate: True
+
+  symbio:
+    incremental: True
+    propagate: True

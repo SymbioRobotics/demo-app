@@ -1,0 +1,16 @@
+#!/bin/bash -eu
+#
+# Frontend to the shared bootstrap script.
+##############################################################################
+
+MYPATH=$(cd "$(dirname "${BASH_SOURCE[0]}")"; pwd -L)
+
+# Get the latest version of symbio-build-tools.
+
+if [ -z "${JENKINS_URL-}" ] ; then
+    git submodule update --init --recursive infrastructure
+fi
+
+. "$MYPATH/infrastructure/bootstrap.sh"
+
+SBT_BOOTSTRAP_APP=true main "$@"

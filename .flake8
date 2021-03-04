@@ -1,0 +1,106 @@
+[flake8]
+
+# Configure import order by identifying our local packages and namespaces.
+
+application-import-names = symbio_reference
+
+# Use pylint output which is parseable by Jenkins plugins.
+
+format = pylint
+
+# Options for flake8-functions.
+
+max-parameters-amount = 8
+max-function-length = 100
+
+# Set the maximum McCabe complexity.
+# https://www.guru99.com/cyclomatic-complexity.html
+
+max-complexity = 10
+
+# Display offending line, not just the error message.
+
+show-source = True
+
+# Print summary statistics when errors are found.
+
+statistics = True
+
+# Echo to stdout if output-file has been specified.
+
+tee = True
+
+# The flake8-docstring extension only exposes the docstring "convention" option
+# of pydocstyle. We use the Google convention, which leaves room for
+# inconsistency by disabling mutually exclusive checks like line spacing
+# before and after class docstrings. Fine-grained control requires
+# specifying "all" as the convention and selectively disabling codes.
+
+docstring-convention = all
+
+ignore =
+         # Suppress codes in conflict with the Google style convention.
+         # pydocstyle does when "--convention=google".
+         #
+         # D400 First line should end with a period (enforce D415 instead).
+         # D401 First line should be in imperative mood.
+         # D404 First word of the docstring should not be This.
+         # D406 Section name should end with a newline
+         # D407 Missing dashed underline after section
+         # D413 Missing blank line after last section
+
+         D400 D401 D404 D406 D407 D413
+
+         # Additions to the Google style convention.
+         #
+         # D203 "1 blank line required before class docstring".
+         # D213 "1 blank line required after class docstring".
+         #
+         # Subtractions from the Google style convention.
+         #
+         # D202 No blank lines allowed after function docstring.
+         # D211 No blank lines allowed before class docstring.
+         # D212 Multi-line docstring summary should start at the first line.
+
+         D202 D211 D212
+
+         # The flake8-rst plugin does not handle Google-style docstrings correctly,
+         # specifically the identation of argument descriptions that span multiple lines.
+
+         RST201 RST203 RST301
+
+         # RST201 Block quote ends without a blank line; unexpected unindent.
+         # RST203 Definition list ends without a blank line; unexpected unindent.
+         # RST301 Unexpected indentation.
+
+         # https://www.python.org/dev/peps/pep-0008/#should-a-line-break-before-or-after-a-binary-operator
+         # Strictly speaking it can be either as long as there is consistency, but the recommendation is
+         # that new code break before binary operators.
+
+         W503
+
+         # Conflicts with GPSG and PEP8
+         # E226 missing whitespace around arithmetic operator
+
+         E226
+
+exclude =
+
+per-file-ignores =
+
+    # flake8 complains about unused imports in the absence of __all__.
+    # __init__.py modules that contain import statements exclusively
+    # should not be required to restate those symbols.
+    # __all__ is only needed when __init__.py wants to export a subset
+    # of its symbols.
+    #
+    # F401 must be restated for __init.__py modules with other violations since
+    # flake8 does not accumulate codes for each file. The last matching line wins.
+
+    */__init__.py:F401
+    */__version__.py:F401
+
+    # Docstrings are optional in test cases (D100-D107). If specified,
+    # they must conform the same formatting rules.
+
+    tests/*:D100,D101,D102,D103,D104,D105,D107
